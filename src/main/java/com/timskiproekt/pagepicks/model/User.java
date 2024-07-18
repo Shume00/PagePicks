@@ -1,46 +1,44 @@
 package com.timskiproekt.pagepicks.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private Set<String> roles;
+    private Set<String> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserBook> readlist;
-
-    public Set<UserBook> getReadlist() {
-        return readlist;
+    public User () {
     }
 
-    public void setReadlist(Set<UserBook> readlist) {
-        this.readlist = readlist;
+    public User (Long id, String username, String password, String email, Set<String> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
     }
-
-    public Set<UserBook> getAlreadyRead() {
-        return alreadyRead;
-    }
-
-    public void setAlreadyRead(Set<UserBook> alreadyRead) {
-        this.alreadyRead = alreadyRead;
-    }
-
-    @OneToMany(mappedBy = "user")
-    private Set<UserBook> alreadyRead;
 
     public Long getId() {
         return id;

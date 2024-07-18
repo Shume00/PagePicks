@@ -1,18 +1,37 @@
 package com.timskiproekt.pagepicks.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.List;
 
+@Entity
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
-    private List<String> authors;
+    private String author;
     private String coverUrl;
     private String isbn;
+    private String genre;
+    private String publishedDate;
+    private String pageCount;
 
-    public Book(String title, List<String> authors, String coverUrl, String isbn) {
+    public Book(String title, String author, String coverUrl, String isbn, String genre, String publishedDate, String pageCount) {
         this.title = title;
-        this.authors = authors;
+        this.author = author;
         this.coverUrl = coverUrl;
         this.isbn = isbn;
+        this.genre = genre;
+        this.publishedDate = publishedDate;
+        this.pageCount = pageCount;
+    }
+
+    public Book() {
+
     }
 
     public String getTitle() {
@@ -23,12 +42,12 @@ public class Book {
         this.title = title;
     }
 
-    public List<String> getAuthors() {
-        return authors;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getCoverUrl() {
@@ -45,5 +64,29 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public String getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(String pageCount) {
+        this.pageCount = pageCount;
     }
 }
